@@ -1,0 +1,116 @@
+version: '2.3'
+services:
+  # Base images
+  ros_melodic_base:
+    build: 
+      context: ./ros_melodic
+      dockerfile: Dockerfile
+    image: airobots_docker:ros_melodic
+    container_name: ros_melodic
+    runtime: nvidia
+    user: aiRobots
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+      - /dev:/dev
+    environment: 
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+      - "XAUTHORITY=/tmp/.docker.xauth"
+
+  ros_noetic_base:
+    build: 
+      context: ./ros_noetic
+      dockerfile: Dockerfile
+    image: airobots_docker:ros_noetic
+    container_name: ros_noetic
+    runtime: nvidia
+    user: aiRobots
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+      - /dev:/dev
+    environment: 
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+      - "XAUTHORITY=/tmp/.docker.xauth"
+
+  ros_foxy_base:
+    build: 
+      context: ./ros_foxy
+      dockerfile: Dockerfile
+    image: airobots_docker:ros_foxy
+    container_name: ros_foxy
+    runtime: nvidia
+    user: aiRobots
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+      - /dev:/dev
+    environment: 
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+      - "XAUTHORITY=/tmp/.docker.xauth"
+
+  # Application
+  ros_slam:
+    build:
+      context: ./ros_slam
+      dockerfile: Dockerfile
+    depends_on: [ros_melodic_base]
+    image: airobots_docker:ros_slam
+    container_name: ros_slam
+    runtime: nvidia
+    user: aiRobots
+    privileged: true
+    volumes:
+      - ~/aiRobots/SLAM:/home/aiRobots
+      - ~/aiRobots/Datasets:/home/aiRobots/Datasets
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+    environment:
+      #- "ROS_MASTER_URI=http://ros_melodic:11311"
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+      - "XAUTHORITY=/tmp/.docker.xauth"
+      
+
+  ros2_slam:
+    build:
+      context: ./ros2_slam
+      dockerfile: Dockerfile
+    depends_on: [ros_foxy_base]
+    image: airobots_docker:ros2_slam
+    container_name: ros2_slam
+    runtime: nvidia
+    user: aiRobots
+    privileged: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+    environment:
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+      - "XAUTHORITY=/tmp/.docker.xauth"
+  
+  Joy:
+    build:
+      context: ./Joy
+      dockerfile: Dockerfile
+    depends_on: [ros_noetic_base]
+    image: airobots_docker:Joy
+    container_name: Joy
+    runtime: nvidia
+    user: aiRobots
+    privileged: true
+    volumes:
+      - ~/aiRobots/Joy:/home/aiRobots
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+    environment:
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+      - "XAUTHORITY=/tmp/.docker.xauth" 
