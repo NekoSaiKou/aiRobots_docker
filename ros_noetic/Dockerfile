@@ -1,4 +1,5 @@
-FROM nvidia/opengl:1.2-glvnd-runtime-ubuntu20.04
+#FROM nvidia/opengl:1.2-glvnd-runtime-ubuntu20.04
+FROM nvidia/cudagl:11.2.2-runtime-ubuntu20.04
 
 ARG USERNAME=aiRobots
 ARG PASSWORD=aiRobots
