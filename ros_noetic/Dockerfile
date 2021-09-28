@@ -1,5 +1,10 @@
-#FROM nvidia/opengl:1.2-glvnd-runtime-ubuntu20.04
-FROM nvidia/cudagl:11.2.2-runtime-ubuntu20.04
+FROM nvidia/cudagl:11.0.3-devel-ubuntu20.04
+
+ENV NV_CUDNN_VERSION 8.0.5.39
+
+ENV NV_CUDNN_PACKAGE "libcudnn8=$NV_CUDNN_VERSION-1+cuda11.0"
+ENV NV_CUDNN_PACKAGE_DEV "libcudnn8-dev=$NV_CUDNN_VERSION-1+cuda11.0"
+ENV NV_CUDNN_PACKAGE_NAME "libcudnn8"
 
 ARG USERNAME=aiRobots
 ARG PASSWORD=aiRobots
@@ -47,7 +52,14 @@ RUN add-apt-repository "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc
     && apt-get -y update && apt-get -y install --no-install-recommends \
     ros-${ROS_DISTRO}-desktop-full \
     && rm -rf /var/lib/apt/lists/*
-    
+
+#Install cudnn
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ${NV_CUDNN_PACKAGE} \
+    ${NV_CUDNN_PACKAGE_DEV} \
+    && apt-mark hold ${NV_CUDNN_PACKAGE_NAME} && \
+    rm -rf /var/lib/apt/lists/*
+
 #Install tini
 ENV TINI_VERSION v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini

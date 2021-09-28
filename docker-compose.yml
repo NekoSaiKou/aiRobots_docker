@@ -21,16 +21,6 @@ services:
       dockerfile: Dockerfile
     image: airobots_docker:ros_foxy
     container_name: ros_foxy
-    runtime: nvidia
-    user: aiRobots
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /tmp/.docker.xauth:/tmp/.docker.xauth
-      - /dev:/dev
-    environment: 
-      - "DISPLAY=$DISPLAY"
-      - "QT_X11_NO_MITSHM=1"
-      - "XAUTHORITY=/tmp/.docker.xauth"
 
   # Application
   ros_slam:
