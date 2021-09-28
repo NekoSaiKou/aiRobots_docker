@@ -44,27 +44,7 @@ services:
       - "DISPLAY=$DISPLAY"
       - "QT_X11_NO_MITSHM=1"
       - "XAUTHORITY=/tmp/.docker.xauth"
-      
 
-  ros2_slam:
-    build:
-      context: ./ros2_slam
-      dockerfile: Dockerfile
-    depends_on: [ros_foxy_base]
-    image: airobots_docker:ros2_slam
-    container_name: ros2_slam
-    runtime: nvidia
-    user: aiRobots
-    privileged: true
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
-      - /dev:/dev
-    environment:
-      - "DISPLAY=$DISPLAY"
-      - "QT_X11_NO_MITSHM=1"
-      - "XAUTHORITY=/tmp/.docker.xauth"
-  
   Joy:
     build:
       context: ./Joy

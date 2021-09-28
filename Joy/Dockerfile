@@ -24,6 +24,15 @@ RUN apt-get -y update && apt-get -y install --no-install-recommends \
     libsdl2-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Install pip
+RUN apt-get -y update && apt-get -y install --no-install-recommends \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install tensorflow 2.4.0
+RUN python3 -m pip install --upgrade pip --no-cache-dir \ 
+    tensorflow==2.4.1
+
 # enable read write
 RUN usermod -a -G dialout ${USERNAME}
 
