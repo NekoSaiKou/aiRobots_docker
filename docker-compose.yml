@@ -30,11 +30,10 @@ services:
     depends_on: [ros_melodic_base]
     image: airobots_docker:ros_slam
     container_name: ros_slam
-    runtime: nvidia
     user: aiRobots
     privileged: true
     volumes:
-      - ~/aiRobots/SLAM:/home/aiRobots
+      - ~/aiRobots/SLAM:/home/aiRobots/SLAM
       - ~/aiRobots/Datasets:/home/aiRobots/Datasets
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
@@ -56,7 +55,7 @@ services:
     user: aiRobots
     privileged: true
     volumes:
-      - ~/aiRobots/Joy:/home/aiRobots
+      - ~/aiRobots/Joy:/home/aiRobots/Joy
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /dev:/dev
