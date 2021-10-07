@@ -36,6 +36,11 @@ RUN apt-get -y update && apt-get -y install --no-install-recommends \
     && cmake .. &&  make -j$(nproc) && make install\
     && rm -rf /var/lib/apt/lists/*
 
+# Install Sophus
+RUN git clone https://github.com/strasdat/Sophus.git && cd Sophus \
+    && mkdir build && cd build \
+    && cmake -DUSE_BASIC_LOGGING=ON .. &&  make -j$(nproc) && make install
+
 # Install ROS navigation stack
 RUN apt-get -y update && apt-get -y install --no-install-recommends \
     ros-melodic-navigation \

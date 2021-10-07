@@ -27,3 +27,12 @@
 
 * Base: ROS noetic
 * Tensorflow: 2.4.1
+
+#### SLAM
+
+* Base: ROS melodic
+* Pangolin: v0.6
+* Sopuhs
+* Realsense ROS and Realsense SDK
+* ROS navigation stack and teb local planner
+* libopencv
