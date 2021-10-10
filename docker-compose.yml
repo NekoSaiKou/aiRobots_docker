@@ -30,6 +30,7 @@ services:
     depends_on: [ros_melodic_base]
     image: airobots_docker:ros_slam
     container_name: ros_slam
+    runtime: nvidia
     user: aiRobots
     privileged: true
     volumes:
@@ -62,4 +63,4 @@ services:
     environment:
       - "DISPLAY=$DISPLAY"
       - "QT_X11_NO_MITSHM=1"
-      - "XAUTHORITY=/tmp/.docker.xauth" 
+      - "XAUTHORITY=/tmp/.docker.xauth"
