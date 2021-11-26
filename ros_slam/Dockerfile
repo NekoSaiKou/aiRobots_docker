@@ -41,6 +41,12 @@ RUN git clone https://github.com/strasdat/Sophus.git && cd Sophus \
     && mkdir build && cd build \
     && cmake -DUSE_BASIC_LOGGING=ON .. &&  make -j$(nproc) && make install
 
+# Install gtk module
+RUN apt-get -y update && apt-get -y install --no-install-recommends \
+    libcanberra-gtk-module \
+    libcanberra-gtk3-module \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install ROS navigation stack
 RUN apt-get -y update && apt-get -y install --no-install-recommends \
     ros-melodic-navigation \

@@ -45,6 +45,7 @@ RUN add-apt-repository "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc
     && apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 \
     && apt-get -y update && apt-get -y install --no-install-recommends \
     ros-${ROS_DISTRO}-desktop-full \
+    ros-${ROS_DISTRO}-cv-bridge \
     && rm -rf /var/lib/apt/lists/*
     
 #Install tini
