@@ -22,7 +22,6 @@ RUN apt-get -y update && apt-get -y install --no-install-recommends \
     libxss1 \
     && rm -rf /var/lib/apt/lists/*
 
- libgtk-3-dev libxss1
 # Setting resolvconf
 RUN apt-get update
 RUN apt-get install -y apt-utils debconf-utils dialog libxtst6 libnss3 lib
