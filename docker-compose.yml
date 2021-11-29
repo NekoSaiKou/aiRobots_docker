@@ -33,14 +33,12 @@ services:
     runtime: nvidia
     user: aiRobots
     privileged: true
+    network_mode: "host"
     volumes:
-      - ~/aiRobots/SLAM:/home/aiRobots/SLAM
-      - ~/aiRobots/Datasets:/home/aiRobots/Datasets
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
       - /dev:/dev
     environment:
-      #- "ROS_MASTER_URI=http://ros_melodic:11311"
       - "DISPLAY=$DISPLAY"
       - "QT_X11_NO_MITSHM=1"
       - "XAUTHORITY=/tmp/.docker.xauth"
