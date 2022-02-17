@@ -27,6 +27,7 @@ services:
     build:
       context: ./ros_slam
       dockerfile: Dockerfile
+    network_mode: "host"      
     depends_on: [ros_melodic_base]
     image: airobots_docker:ros_slam
     container_name: ros_slam
@@ -41,7 +42,8 @@ services:
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /dev:/dev
     environment:
-      #- "ROS_MASTER_URI=http://ros_melodic:11311"
+      # - "ROS_IP=192.168.50.248"
+      # - "ROS_MASTER_URI=http://192.168.50.149:11311"
       - "DISPLAY=$DISPLAY"
       - "QT_X11_NO_MITSHM=1"
       - "XAUTHORITY=/tmp/.docker.xauth"
@@ -62,24 +64,6 @@ services:
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /dev:/dev
       - /run/udev:/run/udev:ro
-    environment:
-      - "DISPLAY=$DISPLAY"
-      - "QT_X11_NO_MITSHM=1"
-      - "XAUTHORITY=/tmp/.docker.xauth"
-
-  Nidia_SDK_manager:
-    build:
-      context: ./nvidia_sdk_manager
-      dockerfile: Dockerfile
-    image: airobots_docker:nvidia_sdk_manager
-    container_name: nvidia_sdk_manager
-    user: aiRobots
-    privileged: true
-    volumes:
-      - ~/aiRobots/nvidia_sdk_manager:/home/aiRobots/nvidia_sdk_manager
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
-      - /dev:/dev
     environment:
       - "DISPLAY=$DISPLAY"
       - "QT_X11_NO_MITSHM=1"
