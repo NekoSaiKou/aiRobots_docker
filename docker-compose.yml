@@ -26,7 +26,7 @@ services:
   ros_slam:
     build:
       context: ./ros_slam
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile    
     depends_on: [ros_melodic_base]
     image: airobots_docker:ros_slam
     container_name: ros_slam
@@ -35,10 +35,15 @@ services:
     privileged: true
     network_mode: "host"
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /tmp/.docker.xauth:/tmp/.docker.xauth
+      - ~/aiRobots/aiRobots_AMMR:/home/aiRobots/aiRobots_AMMR
+      - ~/aiRobots/SLAM:/home/aiRobots/SLAM
+      - ~/aiRobots/Datasets:/home/aiRobots/Datasets
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /dev:/dev
     environment:
+      # - "ROS_IP=192.168.50.248"
+      # - "ROS_MASTER_URI=http://192.168.50.149:11311"
       - "DISPLAY=$DISPLAY"
       - "QT_X11_NO_MITSHM=1"
       - "XAUTHORITY=/tmp/.docker.xauth"
