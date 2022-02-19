@@ -1,27 +1,28 @@
 # Use ROS melodic as base iamge
 FROM airobots_docker:ros_melodic
 
-# Install realsense2
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE \
-    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE \
-    && add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u \
-    && apt-get -y update && apt-get -y install --no-install-recommends \
-    udev \
-    librealsense2-utils \
-    librealsense2-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install realsense-ros
-RUN apt-get -y update && apt-get -y install --no-install-recommends \
-    ros-${ROS_DISTRO}-realsense2-camera \
-    && rm -rf /var/lib/apt/lists/*
-ADD https://raw.githubusercontent.com/IntelRealSense/librealsense/master/config/99-realsense-libusb.rules /etc/udev/rules.d
-
 # Install OpenCV
 RUN apt-get -y update && apt-get -y install --no-install-recommends \
     libopencv-dev \
     && rm -rf /var/lib/apt/lists/*
-    
+
+# Build RealsenseSDK from source with CUDA support using script provided by jetsonhacks
+RUN git clone https://github.com/jetsonhacks/installRealSenseSDK.git && cd installRealSenseSDK \
+    && ./buildLibrealsense.sh
+
+RUN mkdir -p /home/${USERNAME}/catkin_ws/src  \
+    && cd /home/${USERNAME}/catkin_ws/src && git clone --depth 1  https://github.com/IntelRealSense/realsense-ros.git && cd realsense-ros \
+    && git checkout `git tag | sort -V | grep -P "^2.\d+\.\d+" | tail -1` \
+    && cd /home/${USERNAME}/catkin_ws/src && git clone --depth 1  https://github.com/pal-robotics/ddynamic_reconfigure.git \
+    && /bin/bash -c  'source /opt/ros/${ROS_DISTRO}/setup.bash; cd /home/${USERNAME}/catkin_ws; catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release; catkin_make install' \
+    && echo "source //home/${USERNAME}/catkin_ws/devel/setup.bash" >> /home/${USERNAME}/.bashrc
+
+    # && catkin_init_workspace && cd .. \
+    # && catkin_make clean \
+    # && catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release \
+    # && catkin_make install \
+    # && echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+
 # Instal Llibrary for pangolindev
 RUN apt-get -y update && apt-get -y install --no-install-recommends \
     libglew-dev \
