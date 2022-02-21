@@ -10,18 +10,13 @@ RUN apt-get -y update && apt-get -y install --no-install-recommends \
 RUN git clone https://github.com/jetsonhacks/installRealSenseSDK.git && cd installRealSenseSDK \
     && ./buildLibrealsense.sh
 
+# Build Realsense ROS Wrapper from source
 RUN mkdir -p /home/${USERNAME}/catkin_ws/src  \
     && cd /home/${USERNAME}/catkin_ws/src && git clone --depth 1  https://github.com/IntelRealSense/realsense-ros.git && cd realsense-ros \
     && git checkout `git tag | sort -V | grep -P "^2.\d+\.\d+" | tail -1` \
     && cd /home/${USERNAME}/catkin_ws/src && git clone --depth 1  https://github.com/pal-robotics/ddynamic_reconfigure.git \
     && /bin/bash -c  'source /opt/ros/${ROS_DISTRO}/setup.bash; cd /home/${USERNAME}/catkin_ws; catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release; catkin_make install' \
     && echo "source //home/${USERNAME}/catkin_ws/devel/setup.bash" >> /home/${USERNAME}/.bashrc
-
-    # && catkin_init_workspace && cd .. \
-    # && catkin_make clean \
-    # && catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release \
-    # && catkin_make install \
-    # && echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 # Instal Llibrary for pangolindev
 RUN apt-get -y update && apt-get -y install --no-install-recommends \
