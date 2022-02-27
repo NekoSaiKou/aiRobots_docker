@@ -35,9 +35,11 @@ services:
     privileged: true
     network_mode: "host"
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /tmp/.docker.xauth:/tmp/.docker.xauth
+      - ~/aiRobots:/home/aiRobots/:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /dev:/dev
+      - /run/udev:/run/udev:ro
     environment:
       - "DISPLAY=$DISPLAY"
       - "QT_X11_NO_MITSHM=1"
@@ -58,6 +60,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /dev:/dev
+      - /run/udev:/run/udev:ro
     environment:
       - "DISPLAY=$DISPLAY"
       - "QT_X11_NO_MITSHM=1"
