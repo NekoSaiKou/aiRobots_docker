@@ -35,10 +35,11 @@ services:
     user: aiRobots
     privileged: true
     volumes:
-      - ~/aiRobots:/home/aiRobots/
+      - ~/aiRobots:/home/aiRobots/:rw
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /dev:/dev
+      - /run/udev:/run/udev:ro
     environment:
       # - "ROS_IP=192.168.50.248"
       # - "ROS_MASTER_URI=http://192.168.50.149:11311"
