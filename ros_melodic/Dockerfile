@@ -46,6 +46,7 @@ RUN add-apt-repository "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc
     && apt-get -y update && apt-get -y install --no-install-recommends \
     ros-${ROS_DISTRO}-desktop-full \
     ros-${ROS_DISTRO}-cv-bridge \
+    python-rosdep \
     && rm -rf /var/lib/apt/lists/*
     
 #Install tini
