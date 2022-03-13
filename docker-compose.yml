@@ -26,8 +26,7 @@ services:
   ros_slam:
     build:
       context: ./ros_slam
-      dockerfile: Dockerfile
-    network_mode: "host"      
+      dockerfile: Dockerfile     
     depends_on: [ros_melodic_base]
     image: airobots_docker:ros_slam
     container_name: ros_slam
