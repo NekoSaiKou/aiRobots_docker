@@ -53,6 +53,11 @@ RUN apt-get -y update && apt-get -y install --no-install-recommends \
     ros-melodic-teb-local-planner \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get -y update && apt-get -y install --no-install-recommends \
+    libudev-dev \
+    libevent-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # enable read write
 RUN usermod -a -G dialout ${USERNAME}
 
