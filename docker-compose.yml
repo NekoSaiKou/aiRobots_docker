@@ -36,9 +36,9 @@ services:
     network_mode: "host"
     volumes:
       - ~/aiRobots/aiRobots_AMMR:/home/aiRobots/aiRobots/aiRobots_AMMR/:rw
-      - ~/aiRobots/Datasets     :/home/aiRobots/aiRobots/Datasets/:rw
-      - ~/aiRobots/robot_system :/home/aiRobots/aiRobots/robot_system/:rw
-      - ~/aiRobots/SLAM         :/home/aiRobots/aiRobots/SLAM/:rw
+      - ~/aiRobots/Datasets:/home/aiRobots/aiRobots/Datasets/:rw
+      - ~/aiRobots/robot_system:/home/aiRobots/aiRobots/robot_system/:rw
+      - ~/aiRobots/SLAM:/home/aiRobots/aiRobots/SLAM/:rw
 
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
