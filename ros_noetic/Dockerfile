@@ -70,6 +70,6 @@ RUN chmod +x /usr/bin/tini
 # COPY ./ros_entrypoint.sh /
 # RUN chmod +x /ros_entrypoint.sh
 # ENTRYPOINT ["/usr/bin/tini", "--", "/ros_entrypoint.sh"]
-#CMD ["roscore"]
+# CMD ["roscore"]
 
 WORKDIR /home/${USERNAME}

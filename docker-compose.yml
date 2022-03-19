@@ -46,6 +46,29 @@ services:
       - "QT_X11_NO_MITSHM=1"
       - "XAUTHORITY=/tmp/.docker.xauth"
 
+  humanoid:
+    build:
+      context: ./humanoid
+      dockerfile: Dockerfile     
+    depends_on: [ros_melodic_base]
+    image: airobots_docker:humanoid
+    container_name: humanoid
+    runtime: nvidia
+    user: aiRobots
+    privileged: true
+    volumes:
+      - ~/aiRobots/Humanoid:/home/aiRobots/aiRobots/Humanoid/:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+      - /run/udev:/run/udev:ro
+    environment:
+      # - "ROS_IP=192.168.50.248"
+      # - "ROS_MASTER_URI=http://192.168.50.149:11311"
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+      - "XAUTHORITY=/tmp/.docker.xauth"
+
   Joy:
     build:
       context: ./Joy
