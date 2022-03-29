@@ -34,7 +34,9 @@ services:
     user: aiRobots
     privileged: true
     volumes:
-      - ~/aiRobots:/home/aiRobots/aiRobots/:rw
+      - ~/aiRobots/aiRobots_AMMR:/home/aiRobots/aiRobots/aiRobots_AMMR/
+      - ~/aiRobots/SLAM:/home/aiRobots/aiRobots/SLAM/
+      - ~/aiRobots/Datasets:/home/aiRobots/aiRobots/Datasets/
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
       - /dev:/dev
