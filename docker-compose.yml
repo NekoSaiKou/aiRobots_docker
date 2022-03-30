@@ -56,6 +56,7 @@ services:
     runtime: nvidia
     user: aiRobots
     privileged: true
+    network_mode: "host"
     volumes:
       - ~/aiRobots/Humanoid:/home/aiRobots/aiRobots/Humanoid/:rw
       - ~/aiRobots/Datasets:/home/aiRobots/aiRobots/Datasets/:rw
