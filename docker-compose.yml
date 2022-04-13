@@ -93,3 +93,28 @@ services:
       - "DISPLAY=$DISPLAY"
       - "QT_X11_NO_MITSHM=1"
       - "XAUTHORITY=/tmp/.docker.xauth"
+
+  aiRobots_AMMR:
+    build:
+      context: ./AMMR
+      dockerfile: Dockerfile     
+    depends_on: [ros_melodic_base]
+    image: airobots_docker:aiRobots_AMMR
+    container_name: aiRobots_AMMR
+    network_mode: "host"
+    user: aiRobots
+    privileged: true
+    volumes:
+      - ~/aiRobots/aiRobots_AMMR:/home/aiRobots/aiRobots/aiRobots_AMMR/
+      - ~/aiRobots/SLAM:/home/aiRobots/aiRobots/SLAM/
+      - ~/aiRobots/Datasets:/home/aiRobots/aiRobots/Datasets/
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+      - /run/udev:/run/udev:ro
+    environment:
+      # - "ROS_IP=192.168.50.248"
+      # - "ROS_MASTER_URI=http://192.168.50.149:11311"
+      - "DISPLAY=$DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+      - "XAUTHORITY=/tmp/.docker.xauth"
